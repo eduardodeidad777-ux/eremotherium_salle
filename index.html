@@ -1,1 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eremotherium La Salle RA</title>
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #111;
+            color: white;
+            font-family: sans-serif;
+        }
+        model-viewer {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .instructions {
+            position: absolute;
+            bottom: 30px;
+            left: 20px;
+            background: rgba(0,0,0,0.7);
+            color: #4CAF50;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            z-index: 100;
+            border: 1px solid #4CAF50;
+            pointer-events: none;
+        }
+        @media (max-width: 768px) {
+            .instructions { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="instructions">
+        🖱️ Arrastra para rotar | Rueda para zoom
+    </div>
 
+    <!-- VISOR CON MODELO PEGADO AL SUELO -->
+    <model-viewer
+        src="eremotheriumlasalle.glb"
+        alt="Eremotherium - Modelo Lasalle"
+        ar
+        ar-modes="quick-look scene-viewer webxr"
+        ios-src="Eremotheriumlasalle.glb"
+        ar-placement="floor"
+        ar-scale="fixed"
+        ar-hit-test="false"
+        camera-controls
+        auto-rotate
+        shadow-intensity="2"
+        exposure="1"
+        environment-image="neutral"
+        style="background-color: #222;">
+        
+        <!-- Botón RA personalizado -->
+        <button slot="ar-button" style="position: absolute; bottom: 30px; right: 20px; background: #4CAF50; color: white; padding: 15px 30px; border-radius: 50px; border: none; font-size: 18px; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer; z-index: 100;">
+            📱 VER EN REALIDAD AUMENTADA
+        </button>
+    </model-viewer>
+    <!-- ⬆️⬆️⬆️ CIERRE CORRECTO: </model-viewer> - NUNCA USAR </img> ⬆️⬆️⬆️ -->
+</body>
+</html>
