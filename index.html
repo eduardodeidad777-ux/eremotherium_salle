@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eremotherium RA</title>
+    <title>Eremotherium RA - WebXR</title>
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <style>
         html, body {
@@ -33,15 +33,12 @@
             border: 1px solid #4CAF50;
             pointer-events: none;
         }
-        
-        /* Ocultar el botón si el dispositivo no soporta RA */
         model-viewer:not([ar-status="not-present"]) #ar-button {
             display: block;
         }
         model-viewer[ar-status="not-present"] #ar-button {
             display: none;
         }
-
         @media (max-width: 768px) {
             .instructions { display: none; }
         }
@@ -49,14 +46,15 @@
 </head>
 <body>
     <div class="instructions">
-        Ref: 🖱️ Arrastra para rotar | Rueda para zoom
+        🦥 Ref: 🖱️ Arrastra para rotar | Rueda para zoom
     </div>
 
     <model-viewer
+        id="modelo"
         src="Eremotheriumlasalle.glb"
         alt="Eremotherium - Modelo Fósil"
         ar
-        ar-modes="scene-viewer quick-look"
+        ar-modes="webxr"
         ios-src="Eremotheriumlasalle.usdz"
         ar-placement="floor"
         ar-scale="fixed"
@@ -71,5 +69,25 @@
             📱 VER EN REALIDAD AUMENTADA
         </button>
     </model-viewer>
+
+    <script>
+        const modelViewer = document.getElementById('modelo');
+        
+        modelViewer.addEventListener('load', () => {
+            // Escala para vista en pantalla
+            modelViewer.scale = '3 3 3';
+        });
+        
+        modelViewer.addEventListener('ar-status-updated', (event) => {
+            if (event.detail.status === 'session-started') {
+                setTimeout(() => {
+                    const model = modelViewer.model;
+                    if (model) {
+                        model.scale.set(10, 10, 10);
+                    }
+                }, 500);
+            }
+        });
+    </script>
 </body>
 </html>
