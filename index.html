@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eremotherium RA - WebXR</title>
+    <title>Eremotherium RA</title>
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <style>
         html, body {
@@ -33,12 +33,15 @@
             border: 1px solid #4CAF50;
             pointer-events: none;
         }
+        
+        /* Ocultar el botón si el dispositivo no soporta RA */
         model-viewer:not([ar-status="not-present"]) #ar-button {
             display: block;
         }
         model-viewer[ar-status="not-present"] #ar-button {
             display: none;
         }
+
         @media (max-width: 768px) {
             .instructions { display: none; }
         }
@@ -46,16 +49,15 @@
 </head>
 <body>
     <div class="instructions">
-        🦥 Ref: 🖱️ Arrastra para rotar | Rueda para zoom
+        Ref: 🖱️ Arrastra para rotar | Rueda para zoom
     </div>
 
     <model-viewer
-        id="modelo"
-        src="Eremotheriumlasalle.glb"
+        src="EremotheriumMC150326004.glb"
         alt="Eremotherium - Modelo Fósil"
         ar
-        ar-modes="webxr"
-        ios-src="Eremotheriumlasalle.usdz"
+        ar-modes="scene-viewer webxr quick-look"
+        ios-src="EremotheriumMC150326004.usdz"
         ar-placement="floor"
         ar-scale="fixed"
         camera-controls
@@ -69,25 +71,5 @@
             📱 VER EN REALIDAD AUMENTADA
         </button>
     </model-viewer>
-
-    <script>
-        const modelViewer = document.getElementById('modelo');
-        
-        modelViewer.addEventListener('load', () => {
-            // Escala para vista en pantalla
-            modelViewer.scale = '1 1 1';
-        });
-        
-        modelViewer.addEventListener('ar-status-updated', (event) => {
-            if (event.detail.status === 'session-started') {
-                setTimeout(() => {
-                    const model = modelViewer.model;
-                    if (model) {
-                        model.scale.set(2, 2, 2);
-                    }
-                }, 500);
-            }
-        });
-    </script>
 </body>
 </html>
